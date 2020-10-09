@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 echo "Welcome to flipCoinCombination"
 
 ##variable declaration
@@ -19,6 +19,30 @@ dictionary[THH]=0
 dictionary[THT]=0
 dictionary[TTH]=0
 dictionary[TTT]=0
+
+function array() {
+
+	declare -a sortedArray
+	sortedArray[0]=${dictionary[H]}
+	sortedArray[1]=${dictionary[T]}
+
+	sortedArray[2]=${dictionary[HH]}
+	sortedArray[3]=${dictionary[HT]}
+	sortedArray[4]=${dictionary[TH]}
+	sortedArray[5]=${dictionary[TT]}
+
+	sortedArray[6]=${dictionary[HHH]}
+	sortedArray[7]=${dictionary[HHT]}
+	sortedArray[8]=${dictionary[HTH]}
+	sortedArray[9]=${dictionary[HTT]}
+
+	sortedArray[10]=${dictionary[THH]}
+	sortedArray[11]=${dictionary[THT]}
+	sortedArray[12]=${dictionary[TTH]}
+	sortedArray[13]=${dictionary[TTT]}
+
+	echo ${sortedArray[@]}
+}
 
 function tossChecker() {
 
@@ -228,9 +252,29 @@ function flipCoinCombination() {
 	singlet;
 	doublet;
 	triplet
+	percentage
+	array
+	sorting ${sortedArray[@]}
 }
 
+function sorting() {
+
+	sortedArray=$1
+	lenght=${#sortedArray[@]}
+	for (( counter=0;$counter != 4; counter++ ))
+	do
+        	for (( counter2=$counter;$counter2!=4;counter2++ ))
+        	do
+                	if [ ${sortedArray[counter]} -lt ${sortedArray[$counter2]} ]
+                	then
+                        	temp=${soterArray[$counter]};
+	                        sortedArray[$counter]=${sortedArray[$counter2]};
+        	                sortedArray[$counter2]=$temp;
+                	fi
+        	done
+	done
+
+	echo ${sortedArray[@]}
+
+}
 flipCoinCombination
-percentage
-echo ${!dictionary[@]}
-echo ${dictionary[@]}
