@@ -4,6 +4,7 @@ echo "Welcome to flipCoinCombination"
 ##variable declaration
 heads=0
 tails=1
+declare -a sortedArray
 declare -A dictionary
 dictionary[H]=0
 dictionary[T]=0
@@ -22,7 +23,7 @@ dictionary[TTT]=0
 
 function array() {
 
-	declare -a sortedArray
+
 	sortedArray[0]=${dictionary[H]}
 	sortedArray[1]=${dictionary[T]}
 
@@ -247,34 +248,39 @@ function singlet() {
 	done
 
 }
+
+function sorting() {
+
+        sortedArray=("$@")
+	echo ${sortedArray[@]}
+        lenght=${#sortedArray[@]}
+        for (( counter=0; counter<$lenght; counter++ ))
+        do
+                for (( counter2=$counter; counter2<$lenght; counter2++ ))
+                do
+                        if [ ${sortedArray[counter]} -lt ${sortedArray[$counter2]} ]
+                        then
+                                temp=${soterArray[$counter]};
+                                sortedArray[$counter]=${sortedArray[$counter2]};
+                                sortedArray[$counter2]=$temp;
+                        fi
+                done
+        done
+
+        echo ${sortedArray[@]}
+
+}
+
+
 function flipCoinCombination() {
 
 	singlet;
 	doublet;
 	triplet
 	percentage
-	array
-	sorting ${sortedArray[@]}
+	sortedArray=$(array)
+	sorting $sortedArray
 }
 
-function sorting() {
 
-	sortedArray=$1
-	lenght=${#sortedArray[@]}
-	for (( counter=0;$counter != 4; counter++ ))
-	do
-        	for (( counter2=$counter;$counter2!=4;counter2++ ))
-        	do
-                	if [ ${sortedArray[counter]} -lt ${sortedArray[$counter2]} ]
-                	then
-                        	temp=${soterArray[$counter]};
-	                        sortedArray[$counter]=${sortedArray[$counter2]};
-        	                sortedArray[$counter2]=$temp;
-                	fi
-        	done
-	done
-
-	echo ${sortedArray[@]}
-
-}
 flipCoinCombination
